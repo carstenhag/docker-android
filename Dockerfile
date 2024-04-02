@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   openjdk-11-jdk \
   openjdk-8-jdk \
   git \
+  curl \
   wget \
   build-essential \
   zlib1g-dev \
