@@ -15,8 +15,6 @@ ENV LANG=en_US.UTF-8
 RUN apt-get update && apt-get install --no-install-recommends -y \
   openjdk-21-jdk \
   openjdk-17-jdk \
-  openjdk-11-jdk \
-  openjdk-8-jdk \
   git \
   wget \
   curl \
