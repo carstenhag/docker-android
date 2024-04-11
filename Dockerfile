@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-# Required for Jenv
-SHELL ["/bin/bash", "-c"]
-
 ## Set timezone to UTC by default
 RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
@@ -29,18 +26,15 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-## Install jenv
-ENV JENV_ROOT "$HOME/.jenv"
-RUN git clone https://github.com/jenv/jenv.git $JENV_ROOT
-ENV PATH "$PATH:$JENV_ROOT/bin"
-RUN mkdir $JENV_ROOT/versions
+# 17 or 21
+ARG JDK_VERSION=17
+
 ENV JDK_ROOT "/usr/lib/jvm/"
-RUN jenv add ${JDK_ROOT}/java-8-openjdk-amd64
-RUN jenv add ${JDK_ROOT}/java-11-openjdk-amd64
-RUN jenv add ${JDK_ROOT}/java-21-openjdk-amd64
-RUN jenv add ${JDK_ROOT}/java-17-openjdk-amd64
-RUN echo 'export PATH="$JENV_ROOT/bin:$PATH"' >> ~/.bashrc
-RUN echo 'eval "$(jenv init -)"' >> ~/.bashrc
+ENV JAVA_HOME="${JDK_ROOT}/java-${JDK_VERSION}-openjdk-amd64"
+
+# RUN jenv add ${JDK_ROOT}/java-21-openjdk-amd64
+# RUN jenv add ${JDK_ROOT}/java-17-openjdk-amd64
+# RUN echo 'export PATH="$JENV_ROOT/bin:$PATH"' >> ~/.bashrc
 
 
 ## Install Android SDK
